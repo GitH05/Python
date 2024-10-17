@@ -1,0 +1,7 @@
+word = str(input("\nEnter multi word:"))
+words = word.split()
+print("Number of world:",len(words))
+upperCase = word.capitalize()
+print("Uppercase:",upperCase)
+title = word.title()
+print("First Letter is capital:",title)
