@@ -10,4 +10,4 @@ else:
         number = number // 10  # Reduce the number by removing the last digit.
         count += 1
 
-    print(f'The {temp} is of {count} digit number')
+    print(f'The {temp} is of {count} digit')
