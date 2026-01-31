@@ -1,0 +1,53 @@
+window -search -cmd :- TYPE
+pip install pymysql
+
+
+ALL DATABASE TABLES : RUN QUERY SEQUENTIALLY
+
+CREATE DATABASE IF NOT EXISTS college_db;
+USE college_db;
+
+-- 1. Table to store student details
+SELECT * FROM STUDENTS;
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    department VARCHAR(50),
+    class VARCHAR(50),
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- 2. Table to store attendance logs
+SELECT * FROM attendance_records ;
+CREATE TABLE attendance_records (
+    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    attendance_date DATE,
+    status ENUM('Present', 'Absent', 'Late', 'Excused'),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    UNIQUE KEY unique_attendance (student_id, attendance_date)
+);
+
+-- 3. Table to set the 'Pass' mark for attendance (e.g., 75%)
+CREATE TABLE attendance_thresholds (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    percentage_limit DECIMAL(5,2),
+    effective_from DATE
+);
+
+-- 4. Table to log when an alert was sent
+CREATE TABLE alerts_log (
+    alert_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    alert_type VARCHAR(50),
+    status VARCHAR(20),
+    log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+-- IMPORTANT: Insert a default threshold so the code has something to check against
+INSERT INTO attendance_thresholds (percentage_limit, effective_from) VALUES (75.00, CURDATE());
+
+SELECT * FROM ATTENDANCE_THRESHOLDS;
