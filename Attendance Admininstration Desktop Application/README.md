@@ -1,6 +1,5 @@
 
-# 🎓 College Management System (Student & Attendance)
-
+# 🎓 ATTENDANCE ADMINISTRATION DESKTOP APPLICATION
 ## 📌 Project Overview
 
 This is a **Python-based desktop application** built using **Tkinter** and **MySQL** to manage:
